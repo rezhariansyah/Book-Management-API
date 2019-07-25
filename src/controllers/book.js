@@ -1,4 +1,4 @@
-const bookModel = require("../models/bookModel");
+const bookModel = require("../models/book");
 const MiscHelper = require("../helpers/helpers");
 
 module.exports = {
@@ -97,22 +97,35 @@ module.exports = {
   },
 
   addBook: (req, res) => {
-      let book = {
-          title : req.body.title,
-          writer : req.body.writer,
-          description : req.body.description,
-          id_category : req.body.id_category,
-          img : req.body.img
-      }
-      console.log(book);
-      
-      bookModel.addBook(book)
-      .then((result) => {
-          MiscHelper.response(res, result, 200)
+    let book = {
+      title: req.body.title,
+      writer: req.body.writer,
+      description: req.body.description,
+      id_category: req.body.id_category,
+      img: req.body.img
+    };
+    console.log(book);
+
+    bookModel
+      .addBook(book)
+      .then(result => {
+        MiscHelper.response(res, result, 200);
       })
       .catch(err => {
-          console.log(err)
-      })
-  }
+        console.log(err);
+      });
+  },
 
+  deleteBook: (req, res) => {
+    let idBook = req.params.idBook;
+
+    bookModel
+      .deleteBook(idBook)
+      .then(result => {
+        MiscHelper.response(res, result, 200);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 };

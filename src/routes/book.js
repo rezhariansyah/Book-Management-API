@@ -1,7 +1,7 @@
 const express = require('express')
 const Route = express.Router()
 
-const BookController = require('../controllers/bookController')
+const BookController = require('../controllers/book')
 
 Route
   .get('/allBooks', BookController.getAllBooks)
@@ -12,5 +12,6 @@ Route
   .get('/:idBook', BookController.getIdBook)
   .patch('/:idBook', BookController.updateBook)
   .post('/', BookController.addBook)
+  .delete('/:idBook', BookController.deleteBook)
 
 module.exports = Route
