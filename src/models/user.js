@@ -2,7 +2,7 @@ const connection = require('../configs/db')
 
 module.exports = {
   getUsers: (callback) => {
-    connection.query(`SELECT * FROM user`, (err, result) => {
+    connection.query(`SELECT * FROM users`, (err, result) => {
       if (err) console.log(err)
 
       callback(err, result)
@@ -30,12 +30,12 @@ module.exports = {
           reject(err)
         }
       })
-    }) 
+    })
   },
 
   getByEmail: (email) => {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT id_user, email, fullname, created_at, updated_at, salt, password FROM user WHERE email = ?', email, (err, result) => {
+      connection.query('SELECT id_user, email, fullname, created_at, updated_at, salt, password FROM users WHERE email = ?', email, (err, result) => {
         if (!err) {
           resolve(result)
         } else {

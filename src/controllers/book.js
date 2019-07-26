@@ -14,6 +14,10 @@ module.exports = {
       });
   },
   // SEARCH START --------------------------------
+  searchBook: (search) => {
+    
+  },
+
   getScienceBook: (req, res) => {
     bookModel
       .getScienceBook()

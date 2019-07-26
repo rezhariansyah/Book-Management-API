@@ -42,10 +42,12 @@ module.exports = {
       password: passwordHash.passwordHash,
       salt: passwordHash.salt,
       token: 'Test',
+      role: 'user',
       status: 1,
       created_at: new Date(),
       updated_at: new Date()
     }
+    console.log(data)
 
     userModels.register(data)
       .then((resultRegister) => {
@@ -68,7 +70,7 @@ module.exports = {
         if (usePassword === dataUser.password) {
           dataUser.token = jwt.sign({
             userid: dataUser.userid
-          }, process.env.SECRET_KEY, { expiresIn: '1h' })
+          }, process.env.SECRET_KEY, { expiresIn: '10s' })
 
           delete dataUser.salt
           delete dataUser.password
