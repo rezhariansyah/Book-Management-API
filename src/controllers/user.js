@@ -42,10 +42,12 @@ module.exports = {
       password: passwordHash.passwordHash,
       salt: passwordHash.salt,
       token: 'Test',
+      role: 'user',
       status: 1,
       created_at: new Date(),
       updated_at: new Date()
     }
+    console.log(data)
 
     userModels.register(data)
       .then((resultRegister) => {

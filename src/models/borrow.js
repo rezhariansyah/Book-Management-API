@@ -54,9 +54,13 @@ module.exports = {
                     [status, id_book],
                     (err, result1) => {
                       if (!err) {
-                        resolve(
-                          `delete success ${idBorrow}, update status book ${id_book}`
-                        );
+                        connection.query(
+                          "select * from borrow inner join book on borrow.id_book = book.id_book", (err, result2) => {
+                            if(!err){
+                              resolve(result2)
+                            }
+                          }
+                        )
                       } else {
                         reject(new Error(err));
                       }

@@ -8,6 +8,8 @@ module.exports = {
     const headerAuth = req.headers['authorization']
     const headerSecret = req.headers['x-access-token']
 
+    console.log(req.headers)
+
     if (headerAuth !== allowedAccess) {
       return MiscHelper.response(res, null, 401, 'Unauthorized, Need access token!')
     } else if (typeof headerSecret === 'undefined') { 
