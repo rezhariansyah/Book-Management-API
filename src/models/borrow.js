@@ -2,18 +2,22 @@ const connection = require("../configs/db");
 
 module.exports = {
   // insert Borrow
-  getAllBorrow: () => {
+  getAllBorrow: (role, id_user) => {
+    console.log("id_USereerer",id_user)
+    let sql = "";
+    if (role == "admin") {
+      sql = `select * from borrow inner join book on borrow.id_book = book.id_book`;
+    } else {
+      sql = `select * from borrow inner join book on borrow.id_book = book.id_book where id_user = ${id_user}`;
+    }
     return new Promise((resolve, reject) => {
-      connection.query(
-        "select * from borrow inner join book on borrow.id_book = book.id_book",
-        (err, result) => {
-          if (!err) {
-            resolve(result);
-          } else {
-            reject(new Error(err));
-          }
+      connection.query(sql, (err, result) => {
+        if (!err) {
+          resolve(result);
+        } else {
+          reject(new Error(err));
         }
-      );
+      });
     });
   },
   addLoan: data => {
@@ -55,12 +59,13 @@ module.exports = {
                     (err, result1) => {
                       if (!err) {
                         connection.query(
-                          "select * from borrow inner join book on borrow.id_book = book.id_book", (err, result2) => {
-                            if(!err){
-                              resolve(result2)
+                          "select * from borrow inner join book on borrow.id_book = book.id_book",
+                          (err, result2) => {
+                            if (!err) {
+                              resolve(result2);
                             }
                           }
-                        )
+                        );
                       } else {
                         reject(new Error(err));
                       }

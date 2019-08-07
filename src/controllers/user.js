@@ -1,87 +1,96 @@
-const userModels = require('../models/user')
-const MiscHelper = require('../helpers/helpers')
+const userModels = require("../models/user");
+const MiscHelper = require("../helpers/helpers");
 
-const jwt = require('jsonwebtoken')
+const jwt = require("jsonwebtoken");
 
 module.exports = {
   getIndex: (req, res) => {
-    return res.json({ message: 'Hello' })
+    return res.json({ message: "Hello" });
   },
 
   // Using Callback
   getUsers: (req, res) => {
     userModels.getUsers((err, result) => {
-      if (err) console.log(err)
+      if (err) console.log(err);
 
       // res.json(result)
-      MiscHelper.response(res, result, 200)
-    })
+      MiscHelper.response(res, result, 200);
+    });
   },
 
   // Using Promise
   userDetail: (req, res) => {
-    const userid = req.params.userid
+    const userid = req.params.userid;
 
-    userModels.userDetail(userid)
-      .then((resultUser) => {
-        const result = resultUser[0]
-        MiscHelper.response(res, result, 200)
+    userModels
+      .userDetail(userid)
+      .then(resultUser => {
+        const result = resultUser[0];
+        MiscHelper.response(res, result, 200);
       })
-      .catch((error) => {
-        console.log(error)
-      })
+      .catch(error => {
+        console.log(error);
+      });
   },
 
   register: (req, res) => {
-    const salt = MiscHelper.generateSalt(18)
-    const passwordHash = MiscHelper.setPassword(req.body.password, salt)
+    const salt = MiscHelper.generateSalt(18);
+    const passwordHash = MiscHelper.setPassword(req.body.password, salt);
 
     const data = {
       email: req.body.email,
       fullname: req.body.fullname,
       password: passwordHash.passwordHash,
       salt: passwordHash.salt,
-      token: 'Test',
-      role: 'user',
+      token: "Test",
+      role: "user",
       status: 1,
       created_at: new Date(),
       updated_at: new Date()
-    }
-    console.log(data)
+    };
+    console.log(data);
 
-    userModels.register(data)
-      .then((resultRegister) => {
-        MiscHelper.response(res, resultRegister, 200)
+    userModels
+      .register(data)
+      .then(resultRegister => {
+        MiscHelper.response(res, resultRegister, 200);
       })
-      .catch((error) => {
-        console.log(error)
-      })
+      .catch(error => {
+        console.log(error);
+      });
   },
 
   login: (req, res) => {
-    const email = req.body.email
-    const password = req.body.password
+    const email = req.body.email;
+    const password = req.body.password;
 
-    userModels.getByEmail(email)
-      .then((result) => {
-        const dataUser = result[0]
-        const usePassword = MiscHelper.setPassword(password, dataUser.salt).passwordHash
+    userModels
+      .getByEmail(email)
+      .then(result => {
+        const dataUser = result[0];
+        const usePassword = MiscHelper.setPassword(password, dataUser.salt)
+          .passwordHash;
 
         if (usePassword === dataUser.password) {
-          dataUser.token = jwt.sign({
-            userid: dataUser.userid
-          }, process.env.SECRET_KEY, { expiresIn: '1h' })
+          dataUser.token = jwt.sign(
+            {
+              userid: dataUser.userid
+            },
+            process.env.SECRET_KEY,
+            { expiresIn: "1h" }
+          );
+          console.log(dataUser);
 
-          delete dataUser.salt
-          delete dataUser.password
+          delete dataUser.salt;
+          delete dataUser.password;
 
-          return MiscHelper.response(res, dataUser, 200)
+          return MiscHelper.response(res, dataUser, 200);
         } else {
-          return MiscHelper.response(res, null, 403, 'Wrong password!')
+          return MiscHelper.response(res, null, 403, "Wrong password!");
         }
       })
-      .catch((error) => {
-        console.log(error)
-      })
+      .catch(error => {
+        console.log(error);
+      });
   }
-}
+};
