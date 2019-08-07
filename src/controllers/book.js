@@ -14,10 +14,29 @@ module.exports = {
       });
   },
   // SEARCH START --------------------------------
-  searchBook: (search) => {
-    
+  searchBook: search => {},
+  getBorrowedBook: () => {
+    bookModel
+      .getBorrowedBook()
+      .then(resultBook => {
+        const result = resultBook;
+        MiscHelper.response(res, result, 200);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   },
-
+  getAvailableBook: () => {
+    bookModel
+      .getAvailableBook()
+      .then(resultBook => {
+        const result = resultBook;
+        MiscHelper.response(res, result, 200);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  },
   getScienceBook: (req, res) => {
     bookModel
       .getScienceBook()
@@ -29,7 +48,7 @@ module.exports = {
         console.log(error);
       });
   },
-
+  
   getComicBook: (req, res) => {
     bookModel
       .getComicBook()

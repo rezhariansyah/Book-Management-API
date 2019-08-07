@@ -30,7 +30,34 @@ module.exports = {
       );
     });
   },
-
+  getBorrowedBook: () => {
+    return new Promise((resolve, reject) => {
+      connection.query(
+        `select * from book inner join category on book.id_category = category.id where status = 0`,
+        (err, result) => {
+          if (!err) {
+            resolve(result);
+          } else {
+            reject(new Error(err));
+          }
+        }
+      );
+    });
+  },
+  getAvailableBook: () => {
+    return new Promise((resolve, reject) => {
+      connection.query(
+        `select * from book inner join category on book.id_category = category.id where status = 1`,
+        (err, result) => {
+          if (!err) {
+            resolve(result);
+          } else {
+            reject(new Error(err));
+          }
+        }
+      );
+    });
+  },
   getComicBook: () => {
     return new Promise((resolve, reject) => {
       connection.query(
@@ -122,11 +149,11 @@ module.exports = {
 
   deleteBook: idBook => {
     return new Promise((resolve, reject) => {
-        let sql = `delete from book where id_book = ? `
-        connection.query(sql, idBook, (err, res) => {
-            if(!err) resolve(res)
-            reject(new Error(err))
-        })
+      let sql = `delete from book where id_book = ? `;
+      connection.query(sql, idBook, (err, res) => {
+        if (!err) resolve(res);
+        reject(new Error(err));
+      });
     });
   }
 };
