@@ -42,4 +42,4 @@ app.use(bodyParser.urlencoded({ extended: false })); // body type
 
 app.use("/book", bookRoute);
 app.use("/borrow", borrowRoute);
-app.use('/user', userRoute)
+app.use('/user', userRoute);

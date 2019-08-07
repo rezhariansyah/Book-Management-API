@@ -2,9 +2,13 @@ const borrowModel = require("../models/borrow");
 const MiscHelper = require("../helpers/helpers");
 
 module.exports = {
-  getAllBooks: (req, res) => {
+  getAllBorrow: (req, res) => {
+    let role = req.body.role
+    let id_user = req.body.id_user || ""
+    console.log(req.headers)
+
     borrowModel
-      .getAllBorrow()
+      .getAllBorrow(role, id_user)
       .then(resultBook => {
         const result = resultBook;
         MiscHelper.response(res, result, 200);
@@ -14,9 +18,9 @@ module.exports = {
       });
   },
   addLoan: (req, res) => {
-    const { ktp, id_book } = req.body;
+    const { id_user, id_book } = req.body;
     const data = {
-      ktp,
+      id_user,
       id_book,
       borrow_date: new Date(),
       date_returned: new Date(req.body.date_returned)

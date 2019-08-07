@@ -35,7 +35,7 @@ module.exports = {
 
   getByEmail: (email) => {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT id_user, email, fullname, created_at, updated_at, salt, password FROM users WHERE email = ?', email, (err, result) => {
+      connection.query('SELECT id_user, email, fullname, ktp, role, created_at, updated_at, salt, password FROM users WHERE email = ?', email, (err, result) => {
         if (!err) {
           resolve(result)
         } else {
