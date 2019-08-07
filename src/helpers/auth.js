@@ -5,7 +5,7 @@ const allowedAccess = process.env.REQUEST_HEADERS
 
 module.exports = {
   authInfo: (req, res, next) => {
-    const headerAuth = req.headers['authorization']
+    const headerAuth = req.headers['welcometoapp']
     const headerSecret = req.headers['x-access-token']
 
     console.log(req.headers)
@@ -24,7 +24,7 @@ module.exports = {
   },
 
   accesstoken: (req, res, next) => {
-    const secretKey = process.env.SECRET_KEY
+    const secretKey = 'babayaga'
     const accessToken = req.token
     const userToken = req.headers['x-control-user']
 

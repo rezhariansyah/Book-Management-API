@@ -76,7 +76,7 @@ module.exports = {
             {
               userid: dataUser.userid
             },
-            process.env.SECRET_KEY,
+            'babayaga',
             { expiresIn: "1h" }
           );
           console.log(dataUser);
