@@ -3,17 +3,16 @@ const connection = require("../configs/db");
 module.exports = {
   // insert Borrow
   getAllBorrow: (role, id_user) => {
-    console.log("id_USereerer",id_user)
     let sql = "";
     if (role == "admin") {
       sql = `select * from borrow inner join book on borrow.id_book = book.id_book INNER JOIN users on borrow.id_user = users.id_user`;
     } else {
-      sql = `select * from borrow inner join book on borrow.id_book = book.id_book where id_user = ${id_user}`;
+      sql = `select * from borrow inner join book on borrow.id_book = book.id_book INNER JOIN users on borrow.id_user = users.id_user where borrow.id_user = ${id_user}`;
     }
+    console.log("sql",sql)
     return new Promise((resolve, reject) => {
       connection.query(sql, (err, result) => {
         if (!err) {
-          console.log("error 1",  sql )
           resolve(result);
         } else {
           reject(new Error(err));
