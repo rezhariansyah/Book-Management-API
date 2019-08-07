@@ -13,6 +13,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       connection.query(sql, (err, result) => {
         if (!err) {
+          console.log("error 1",  sql )
           resolve(result);
         } else {
           reject(new Error(err));
