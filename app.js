@@ -14,22 +14,22 @@ const userRoute = require("./src/routes/user");
 
 const whiteList = process.env.WHITELIST;
 
-const corsOptions = (req, callback) => {
-  if (whiteList.split(",").indexOf(req.header("Origin")) !== -1) {
-    console.log("Success");
-    return callback(null, {
-      origin: true
-    });
-  } else {
-    console.log("Failed");
-    return callback(null, {
-      origin: false
-    });
-  }
-};
+// const corsOptions = (req, callback) => {
+//   if (whiteList.split(",").indexOf(req.header("Origin")) !== -1) {
+//     console.log("Success");
+//     return callback(null, {
+//       origin: true
+//     });
+//   } else {
+//     console.log("Failed");
+//     return callback(null, {
+//       origin: false
+//     });
+//   }
+// };
 
 app.use(cors());
-app.options('*', cors(corsOptions))
+// app.options('*', cors(corsOptions))
 app.use(xssFilter())
 app.use(logger('dev'))
 

@@ -45,6 +45,7 @@ module.exports = {
       token: "Test",
       role: "user",
       status: 1,
+      ktp: req.body.ktp,
       created_at: new Date(),
       updated_at: new Date()
     };
