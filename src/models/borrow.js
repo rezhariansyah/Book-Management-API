@@ -6,7 +6,7 @@ module.exports = {
     console.log("id_USereerer",id_user)
     let sql = "";
     if (role == "admin") {
-      sql = `select * from borrow inner join book on borrow.id_book = book.id_book`;
+      sql = `select * from borrow inner join book on borrow.id_book = book.id_book INNER JOIN users on borrow.id_user = users.id_user`;
     } else {
       sql = `select * from borrow inner join book on borrow.id_book = book.id_book where id_user = ${id_user}`;
     }
