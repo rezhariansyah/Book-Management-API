@@ -22,6 +22,7 @@ Route
   .get('/biography', BookController.getBiographyBook)
   .get('/novel', BookController.getNovelBook)
   .get('/:idBook', BookController.getIdBook)
+  .get('/test/pagination', BookController.getPagination)
   // .get('/borrowed', BookController.getBorrowedBook)
   // .get('/available', BookController.getAvailableBook)
   .patch('/:idBook', BookController.updateBook)

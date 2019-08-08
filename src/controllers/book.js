@@ -157,6 +157,20 @@ module.exports = {
         console.log(err);
       });
   },
+  getPagination : (req, res) => {
+    let limit = parseInt(req.query.limit) || 6
+    let page = parseInt(req.query.page) || 1
+
+    bookModel
+      .getPagination(limit, page)
+      .then(resultBook => {
+        const result = resultBook;
+        MiscHelper.response(res, result, 200);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  },
 
   deleteBook: (req, res) => {
     let idBook = req.params.idBook;

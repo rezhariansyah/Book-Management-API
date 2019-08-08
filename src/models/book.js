@@ -15,6 +15,22 @@ module.exports = {
       );
     });
   },
+  getPagination : (limit, page) => {
+    
+    let offset = (limit * page) - limit
+    return new Promise((resolve, reject) => {
+      connection.query(
+        "select * from book inner join category on book.id_category = category.id LIMIT ? OFFSET ? ", [limit, offset],
+        (err, result) => {
+          if (!err) {
+            resolve(result);
+          } else {
+            reject(new Error(err));
+          }
+        }
+      );
+    });
+  },
   // SEARCH START --------------------------------
   getScienceBook: () => {
     return new Promise((resolve, reject) => {
