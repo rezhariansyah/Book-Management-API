@@ -1,5 +1,6 @@
 const bookModel = require("../models/book");
 const MiscHelper = require("../helpers/helpers");
+const cloudinary = require('cloudinary')
 
 module.exports = {
   getAllBooks: (req, res) => {
@@ -119,18 +120,36 @@ module.exports = {
       });
   },
 
-  addBook: (req, res) => {
-    let book = {
+  addBook: async (req, res) => {
+    let path = req.file.path
+    let geturl = async (req) => {
+      cloudinary.config({
+        cloud_name: 'dewnmhir6',
+        api_key: '634673581744656',
+        api_secret: 'kM7HXBmASUj8LnaDvSzGvj9ACG0'
+      })
+
+      let data
+      await cloudinary.uploader.upload(path, (result) => {
+        const fs = require('fs')
+        fs.unlinkSync(path)
+        data = result.url
+      })
+
+      return data
+    }
+
+    const data = {
       title: req.body.title,
       writer: req.body.writer,
       description: req.body.description,
       id_category: req.body.id_category,
-      img: req.body.img
+      img: await geturl()
     };
-    console.log(book);
+    console.log("reqbody",req.body);
 
     bookModel
-      .addBook(book)
+      .addBook(data)
       .then(result => {
         MiscHelper.response(res, result, 200);
       })

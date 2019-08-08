@@ -127,10 +127,10 @@ module.exports = {
     });
   },
 
-  addBook: book => {
+  addBook: data => {
     return new Promise((resolve, reject) => {
       let sql = `insert into book set ?`;
-      connection.query(sql, book, (err, result) => {
+      connection.query(sql, data, (err, result) => {
         if (!err) {
           // resolve(result)
           connection.query(
@@ -146,7 +146,17 @@ module.exports = {
       });
     });
   },
-
+  // addBook: (data) => {
+  //   return new Promise((resolve, reject) => {
+  //     connection.query('INSERT INTO book SET ? ', data, (err, result) => {
+  //       if (!err) {
+  //         resolve(result)
+  //       } else {
+  //         reject(new Error(err))
+  //       }
+  //     })
+  //   })
+  // },
   deleteBook: idBook => {
     return new Promise((resolve, reject) => {
       let sql = `delete from book where id_book = ? `;
