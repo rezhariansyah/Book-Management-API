@@ -143,36 +143,36 @@ module.exports = {
     });
   },
 
-  addBook: data => {
-    return new Promise((resolve, reject) => {
-      let sql = `insert into book set ?`;
-      connection.query(sql, data, (err, result) => {
-        if (!err) {
-          // resolve(result)
-          connection.query(
-            `select * from book inner join category on book.id_category = category.id where title = ? and writer = ?`,
-            [book.title, book.writer],
-            (err, value) => {
-              resolve(value);
-            }
-          );
-        } else {
-          reject(new Error(err));
-        }
-      });
-    });
-  },
-  // addBook: (data) => {
+  // addBook: data => {
   //   return new Promise((resolve, reject) => {
-  //     connection.query('INSERT INTO book SET ? ', data, (err, result) => {
+  //     let sql = `insert into book set ?`;
+  //     connection.query(sql, data, (err, result) => {
   //       if (!err) {
-  //         resolve(result)
+  //         // resolve(result)
+  //         connection.query(
+  //           `select * from book inner join category on book.id_category = category.id where title = ? and writer = ?`,
+  //           [book.title, book.writer],
+  //           (err, value) => {
+  //             resolve(value);
+  //           }
+  //         );
   //       } else {
-  //         reject(new Error(err))
+  //         reject(new Error(err));
   //       }
-  //     })
-  //   })
+  //     });
+  //   });
   // },
+  addBook: (data) => {
+    return new Promise((resolve, reject) => {
+      connection.query('INSERT INTO book SET ? ', data, (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(new Error(err))
+        }
+      })
+    })
+  },
   deleteBook: idBook => {
     return new Promise((resolve, reject) => {
       let sql = `delete from book where id_book = ? `;

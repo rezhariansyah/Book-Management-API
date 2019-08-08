@@ -158,7 +158,7 @@ module.exports = {
       });
   },
   getPagination : (req, res) => {
-    let limit = parseInt(req.query.limit) || 6
+    let limit = parseInt(req.query.limit) || 8
     let page = parseInt(req.query.page) || 1
 
     bookModel
