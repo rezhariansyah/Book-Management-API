@@ -1,12 +1,12 @@
 require("dotenv").config();
 
-// const cors = require("cors");
+const cors = require("cors");
 const express = require("express");
 const bodyParser = require("body-parser");
 const xssFilter = require("x-xss-protection");
 const logger = require("morgan");
 const app = express();
-const port = process.env.SERVER_PORT || 3333;
+const port = process.env.PORT || 3333;
 
 const bookRoute = require("./src/routes/book");
 const borrowRoute = require("./src/routes/borrow");
